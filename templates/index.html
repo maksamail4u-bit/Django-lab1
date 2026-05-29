@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+
+{% load custom_filters %}
+
+{% block title %}Главная - Каталог книг{% endblock %}
+
+{% block header %}Список всех книг{% endblock %}
+
+{% block content %}
+    <p><strong>Всего книг в каталоге:</strong> {{ total_books }}</p>
+    
+  
+    <p><strong>Дата загрузки страницы:</strong> {% now "d.m.Y H:i:s" %}</p>
+    <p><strong>Первая книга в каталоге:</strong> {{ books.first.title|default:"Нет книг"|upper }}</p>
+    <p><strong>Количество символов в названии первой книги:</strong> 
+       {{ books.first.title|length|default:"0" }}</p>
+    
+    {% if books %}
+        <h3>Список книг:</h3>
+        {% for book in books %}
+            
+            {% include "includes/book_card.html" with book=book %}
+        {% endfor %}
+    {% else %}
+        <p style="text-align: center; color: gray;">Книг пока нет в каталоге</p>
+    {% endif %}
+{% endblock %}
+
+{% block extra_css %}
+    <style>
+        h3 {
+            margin-top: 20px;
+            color: #333;
+        }
+    </style>
+{% endblock %}

@@ -1,0 +1,23 @@
+{% load custom_filters %}
+
+<div class="book-item">
+    <h3>{{ book.title|truncatechars:40 }}</h3>
+    
+    
+    <p><strong> Автор:</strong> {{ book.author.name|capitalize_name }}</p>
+    <p><strong> Дата рождения автора:</strong> {{ book.author.birth_date|date_format }}</p>
+    <p><strong> Год издания:</strong> {{ book.published_year }}</p>
+    <p><strong> Цена:</strong> {{ book.price|currency_format }}</p>
+    
+    
+    <p><strong> Статус:</strong> 
+        {% if book.is_available %}
+            <span class="available">{% status_badge "available" %}</span>
+        {% else %}
+            <span class="unavailable">{% status_badge "unavailable" %}</span>
+        {% endif %}
+    </p>
+    
+    <p><strong> Краткая информация:</strong> {% book_summary book %}</p>
+    <p><strong> Год выпуска:</strong> {% year_format book.published_year %}</p>
+</div>
