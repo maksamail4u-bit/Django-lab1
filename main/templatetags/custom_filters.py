@@ -8,14 +8,12 @@ register = template.Library()
 
 @register.filter(name='capitalize_name')
 def capitalize_name(value):
-    """Преобразует имя автора в формат с заглавными буквами"""
     if not value:
         return ''
     return ' '.join(word.capitalize() for word in value.split())
 
 @register.filter(name='currency_format')
 def currency_format(value):
-    """Форматирует цену в валюту"""
     try:
         price = Decimal(str(value))
         return f"{price:.2f} ₽"
@@ -24,7 +22,6 @@ def currency_format(value):
 
 @register.filter(name='date_format')
 def date_format(value):
-    """Форматирует дату рождения автора"""
     if not value:
         return "Дата не указана"
     return value.strftime("%d.%m.%Y")
@@ -33,7 +30,6 @@ def date_format(value):
 
 @register.simple_tag(name='status_badge')
 def status_badge(status):
-    """Возвращает текст статуса книги"""
     if status == "available":
         return "✓ В наличии"
     elif status == "unavailable":
@@ -42,14 +38,12 @@ def status_badge(status):
 
 @register.simple_tag(name='book_summary')
 def book_summary(book):
-    """Возвращает краткую информацию о книге"""
     if not book:
         return "Нет информации"
     return f"'{book.title}' - {book.author.name}, {book.published_year} г."
 
 @register.simple_tag(name='year_format')
 def year_format(year):
-    """Форматирует год выпуска"""
     if not year:
         return "Год не указан"
     
